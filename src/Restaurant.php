@@ -16,35 +16,35 @@
         }
 
         function getRestId() {
-            $return $this->rest_id;
+            return $this->rest_id;
         }
 
-        function setName() {
-            $this->name = $name;
+        function setName($name) {
+            $this->name = (string) $name;
         }
 
         function getName() {
-            $return $this->name;
+            return $this->name;
         }
 
         function getCuisineId() {
-            $return $this->cuis_id;
+            return $this->cuis_id;
         }
 
-        function setReview() {
-            $this->rating = $rating;
+        function setReview($review) {
+            $this->review = $review;
         }
 
         function getReview() {
-            $return $this->rating;
+            return $this->review;
         }
 
-        function setRating() {
+        function setRating($rating) {
             $this->rating = $rating;
         }
 
         function getReviewStars() {
-            $return $this->rating;
+            return $this->rating;
         }
 
         function save() {
@@ -56,20 +56,20 @@
         }
 
         static function getAll() {
-            $returned_restaurants = $GLOBALS["DB"]->query("SELECT
+            $returned_rests = $GLOBALS["DB"]->query("SELECT
             * FROM restaurants;");
-            $restaurants = array();
-            foreach($returned_restaurants as $restaurant) {
-                $rest_id = $restaurant["rest_id"];
-                $name = $restaurant["name"];
-                $cuis_id = $restaurant["cuis_id"];
-                $review = $restaurant["cuis_id"];
-                $rating = $restaurant["rating"];
+            $rests = array();
+            foreach($returned_rests as $rest) {
+                $rest_id = $rest["rest_id"];
+                $name = $rest["name"];
+                $cuis_id = $rest["cuis_id"];
+                $review = $rest["cuis_id"];
+                $rating = $rest["rating"];
                 $new_rest = new Restaurant($rest_id, $name, $cuis_id,
                 $review, $rating);
-                array_push($restaurants, $new_rest);
+                array_push($rests, $new_rest);
             }
-            return $restaurants;
+            return $rests;
         }
 
         static function deleteAll() {
@@ -78,12 +78,15 @@
 
         static function find($search_id) {
             $found_rest = null;
+            $rests = Restaurant::getAll();
+            foreach($rests as $rest) {
+                $id = $rest->getRestId();
+                if ($id == $search_id) {
+                    $found_task = $rest;
+                }
+            }
+            return $found_rest;
 
         }
-
-
     }
-
-
-
 ?>
