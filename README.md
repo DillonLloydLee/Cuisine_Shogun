@@ -12,13 +12,14 @@ _This program uses SQL databases to organize restaurants by what type of cuisine
 
 * _Clone directory from "https://github.com/DillonLloydLee/Cuisine_Shogun.git"_
 * _Import SQL databases from the XXXX file._
-* _run "composer install" into the terminal from the main folder directory._
-* _run "php -S localhost:8000" from the web folder._
+* _Run "composer install" into the terminal from the main folder directory._
+* _Run "php -S localhost:8000" from the web folder._
 * _That's it!  Run this program from the root web page and follow onscreen directions._
 
 ## Technologies Used
 
 _Made using SQL, PHP, HTML, Silex, Composer, Twig; function tests conducted with PHPUnit._
+
 
 ### Legal
 
