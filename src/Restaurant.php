@@ -1,22 +1,22 @@
 <?php
     class Restaurant {
-        private $restaurant_id;
+        private $rest_id;
         private $name;
-        private $cuisine_id;
+        private $cuis_id;
         private $rating;
         private $rating;
 
-        function __construct($restaurant_id = null, $name, $cuisine_id,
+        function __construct($rest_id = null, $name, $cuis_id,
         $rating = "No review given", $rating = 3) {
-            $this->restaurant_id = $restaurant_id;
+            $this->rest_id = $rest_id;
             $this->name = $name;
-            $this->cuisine_id = $cuisine_id;
+            $this->cuis_id = $cuis_id;
             $this->rating = $rating;
             $this->rating = $rating;
         }
 
-        function getRestaurantId() {
-            $return $this->restaurant_id;
+        function getRestId() {
+            $return $this->rest_id;
         }
 
         function setName() {
@@ -28,7 +28,7 @@
         }
 
         function getCuisineId() {
-            $return $this->cuisine_id;
+            $return $this->cuis_id;
         }
 
         function setReview() {
@@ -49,10 +49,36 @@
 
         function save() {
             $GLOBALS["DB"]->exec("INSERT INTO restaurants (name,
-            cuisine_id, review, rating) VALUES ("{this->getName()}",
-            {$this->getCuisineId()}, "{$this->getReview()}",
+            cuis_id, review, rating) VALUES ('{this->getName()}',
+            {$this->getCuisineId()}, '{$this->getReview()}',
             {$this->getRating()});");
-            $this->restaurant_id = $GLOBALS["DB"]->lastInsertId();
+            $this->rest_id = $GLOBALS["DB"]->lastInsertId();
+        }
+
+        static function getAll() {
+            $returned_restaurants = $GLOBALS["DB"]->query("SELECT
+            * FROM restaurants;");
+            $restaurants = array();
+            foreach($returned_restaurants as $restaurant) {
+                $rest_id = $restaurant["rest_id"];
+                $name = $restaurant["name"];
+                $cuis_id = $restaurant["cuis_id"];
+                $review = $restaurant["cuis_id"];
+                $rating = $restaurant["rating"];
+                $new_rest = new Restaurant($rest_id, $name, $cuis_id,
+                $review, $rating);
+                array_push($restaurants, $new_rest);
+            }
+            return $restaurants;
+        }
+
+        static function deleteAll() {
+            $GLOBALS["DB"]->exec("DELETE FROM restaurants;");
+        }
+
+        static function find($search_id) {
+            $found_rest = null;
+
         }
 
 

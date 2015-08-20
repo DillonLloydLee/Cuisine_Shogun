@@ -19,7 +19,14 @@
             Cuisine::deleteAll();
         }
 
-        function
+        function test_getRestaurants() {
+            $type = "Italian";
+            $id = null;
+            $test_cuisine = new Cuisine($type, $id);
+            $test_cuisine->save();
+
+            
+        }
     }
 
 
