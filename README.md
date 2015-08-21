@@ -11,7 +11,7 @@ _This program uses SQL databases to organize restaurants by what type of cuisine
 ## Setup
 
 * _Clone directory from "https://github.com/DillonLloydLee/Cuisine_Shogun.git"_
-* _Import SQL databases from the XXXX file._
+* _In phpMyAdmin, import the cuisine_shogun.sql.zip file._
 * _Run "composer install" into the terminal from the main folder directory._
 * _Run "php -S localhost:8000" from the web folder._
 * _That's it!  Run this program from the root web page and follow onscreen directions._
