@@ -73,7 +73,7 @@
             $this->assertEquals($test_rest, $result);
         }
 
-        function test_save() {
+        function test_getAll() {
             $type = "Italian";
             $id = null;
             $test_cuisine = new Cuisine($type, $id);

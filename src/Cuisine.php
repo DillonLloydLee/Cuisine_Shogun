@@ -55,10 +55,14 @@
             foreach($returned_cuisines as $cuisine) {
                 $type = $cuisine["type"];
                 $cuis_id = $cuisine["cuis_id"];
-                $new_cuisine = Cuisine($type, $cuis_id);
+                $new_cuisine = new Cuisine($type, $cuis_id);
                 array_push($cuisines, $new_cuisine);
             }
             return $cuisines;
+        }
+
+        static function deleteAll() {
+            $GLOBALS["DB"]->exec("DELETE FROM cuisines;");
         }
 
         static function find($search_id) {
@@ -70,7 +74,7 @@
                     $found_cuisine = $cuisine;
                 }
             }
-            return $found_cuisine;
+        return $found_cuisine;
 
         }
     }

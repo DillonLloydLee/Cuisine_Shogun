@@ -3,15 +3,15 @@
         private $rest_id;
         private $name;
         private $cuis_id;
-        private $rating;
+        private $review;
         private $rating;
 
         function __construct($rest_id = null, $name, $cuis_id,
-        $rating = "No review given", $rating = 3) {
+        $review = "No review given", $rating = 3) {
             $this->rest_id = $rest_id;
             $this->name = $name;
             $this->cuis_id = $cuis_id;
-            $this->rating = $rating;
+            $this->rating = $review;
             $this->rating = $rating;
         }
 
@@ -27,7 +27,7 @@
             return $this->name;
         }
 
-        function getCuisineId() {
+        function getCuisId() {
             return $this->cuis_id;
         }
 
@@ -43,14 +43,14 @@
             $this->rating = $rating;
         }
 
-        function getReviewStars() {
+        function getRating() {
             return $this->rating;
         }
 
         function save() {
             $GLOBALS["DB"]->exec("INSERT INTO restaurants (name,
             cuis_id, review, rating) VALUES ('{this->getName()}',
-            {$this->getCuisineId()}, '{$this->getReview()}',
+            {$this->getCuisId()}, '{$this->getReview()}',
             {$this->getRating()});");
             $this->rest_id = $GLOBALS["DB"]->lastInsertId();
         }

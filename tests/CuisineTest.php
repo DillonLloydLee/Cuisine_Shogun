@@ -22,10 +22,10 @@
         function test_getRestaurants() {
             $type = "Italian";
             $rest_id = null;
-            $test_cuisine = new Cuisine($type, $id);
+            $test_cuisine = new Cuisine($type, $rest_id);
             $test_cuisine->save();
 
-            $test_cuisine_id = $test_cuisine->getCuisId();
+            $test_cuis_id = $test_cuisine->getCuisId();
             $review = null;
             $rating = null;
 
@@ -39,7 +39,7 @@
             $review, $rating);
             $test_rest2->save();
 
-            $result = $test_cuisine->getRestaurants();
+            $result = $test_cuisine->getRests();
 
             $this->assertEquals([$test_rest, $test_rest2], $result);
         }
@@ -48,7 +48,7 @@
             $type = "Italian";
             $test_cuisine = new Cuisine($type);
 
-            $result = $test_cuisine->getName();
+            $result = $test_cuisine->getType();
 
             $this->assertEquals($type, $result);
         }
@@ -102,6 +102,6 @@
 
             $this->assertEquals($test_cuisine, $result);
         }
-            
+
     }
 ?>
