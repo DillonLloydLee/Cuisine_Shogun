@@ -20,9 +20,9 @@
         }
 
         function test_getRestaurants() {
-            $type = "Italian";
+            $name = "Italian";
             $rest_id = null;
-            $test_cuisine = new Cuisine($type, $rest_id);
+            $test_cuisine = new Cuisine($name, $rest_id);
             $test_cuisine->save();
 
             $test_cuis_id = $test_cuisine->getId();
@@ -39,23 +39,23 @@
             $review, $rating);
             $test_rest2->save();
 
-            $result = $test_cuisine->getRests();
+            $result = $test_cuisine->getRestaurants();
 
             $this->assertEquals([$test_rest, $test_rest2], $result);
         }
 
-        function test_getType() {
-            $type = "Italian";
-            $test_cuisine = new Cuisine($type);
+        function test_getName() {
+            $name = "Italian";
+            $test_cuisine = new Cuisine($name);
 
-            $result = $test_cuisine->getType();
+            $result = $test_cuisine->getName();
 
-            $this->assertEquals($type, $result);
+            $this->assertEquals($name, $result);
         }
 
         function test_save() {
-            $type = "Italian";
-            $test_cuisine = new Cuisine($type);
+            $name = "Italian";
+            $test_cuisine = new Cuisine($name);
             $test_cuisine->save();
 
             $result = Cuisine::getAll();
@@ -64,11 +64,11 @@
         }
 
         function test_getAll() {
-            $type = "Italian";
-            $type2 = "French";
-            $test_cuisine = new Cuisine($type);
+            $name = "Italian";
+            $name2 = "French";
+            $test_cuisine = new Cuisine($name);
             $test_cuisine->save();
-            $test_cuisine2 = new Cuisine($type2);
+            $test_cuisine2 = new Cuisine($name2);
             $test_cuisine2->save();
 
             $result = Cuisine::getAll();
@@ -77,11 +77,11 @@
         }
 
         function test_deleteAll() {
-            $type = "Italian";
-            $type2 = "French";
-            $test_cuisine = new Cuisine($type);
+            $name = "Italian";
+            $name2 = "French";
+            $test_cuisine = new Cuisine($name);
             $test_cuisine->save();
-            $test_cuisine2 = new Cuisine($type2);
+            $test_cuisine2 = new Cuisine($name2);
             $test_cuisine2->save();
             Cuisine::deleteAll();
 
@@ -91,11 +91,11 @@
         }
 
         function test_find() {
-            $type = "Italian";
-            $type2 = "French";
-            $test_cuisine = new Cuisine($type);
+            $name = "Italian";
+            $name2 = "French";
+            $test_cuisine = new Cuisine($name);
             $test_cuisine->save();
-            $test_cuisine2 = new Cuisine($type2);
+            $test_cuisine2 = new Cuisine($name2);
             $test_cuisine2->save();
 
             $result = Cuisine::find($test_cuisine->getId());

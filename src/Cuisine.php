@@ -1,19 +1,19 @@
 <?php
     class Cuisine {
-        private $type;
+        private $name;
         private $id;
 
-        function __construct($type, $id = null) {
-            $this->type = $type;
+        function __construct($name, $id = null) {
+            $this->name = $name;
             $this->id = $id;
         }
 
-        function setType($type) {
-            $this->type = (string) $type;
+        function setName($name) {
+            $this->name = (string) $name;
         }
 
-        function getType() {
-            return $this->type;
+        function getName() {
+            return $this->name;
         }
 
         function setId($id) {
@@ -24,26 +24,25 @@
             return $this->id;
         }
 
-        function getRests() {
-            $rests = array();
-            $returned_rests = $GLOBALS["DB"]->query("SELECT *
+        function getRestaurants() {
+            $restaurants = array();
+            $returned_restaurants = $GLOBALS["DB"]->query("SELECT *
             FROM restaurants WHERE id = {$this->getId()};");
-            foreach ($returned_rests as $rest) {
-                $rest_id = $rest["rest_id"];
+            foreach ($returned_restaurants as $rest) {
                 $name = $rest["name"];
                 $id = $rest["id"];
+                $cuisine_id = $rest["cuisine_id"];
                 $review = $rest["review"];
                 $rating = $rest["rating"];
-                $new_rest = new Restaurant($rest_id, $name,
-                $id, $review, $rating);
-                array_push($rests, $new_rest);
+                $new_restaurant = new Restaurant($name, $id, $cuisine_id, $review, $rating);
+                array_push($restaurants, $new_restaurant);
             }
-            return $rests;
+            return $restaurants;
         }
 
         function save() {
-            $GLOBALS["DB"]->exec("INSERT INTO cuisines (type)
-            VALUES ('{$this->getType()}');");
+            $GLOBALS["DB"]->exec("INSERT INTO cuisines (name)
+            VALUES ('{$this->getName()}');");
             $result_id = $GLOBALS["DB"]->lastInsertId();
             $this->setId($result_id);
         }
@@ -53,9 +52,9 @@
             FROM cuisines;");
             $cuisines = array();
             foreach($returned_cuisines as $cuisine) {
-                $type = $cuisine["type"];
+                $name = $cuisine["name"];
                 $id = $cuisine["id"];
-                $new_cuisine = new Cuisine($type, $id);
+                $new_cuisine = new Cuisine($name, $id);
                 array_push($cuisines, $new_cuisine);
             }
             return $cuisines;
