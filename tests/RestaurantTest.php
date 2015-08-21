@@ -130,6 +130,7 @@
             $cuisine_id = $test_cuisine->getId();
             $test_restaurant = new Restaurant($name1, $id, $cuisine_id, $review, $rating);
             $test_restaurant->save();
+            var_dump($test_restaurant);
             $name2 = "Water the lawn";
             $test_restaurant2 = new Restaurant($name2, $id, $cuisine_id, $review, $rating);
             $test_restaurant2->save();

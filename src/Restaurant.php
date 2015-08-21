@@ -39,7 +39,7 @@
         }
 
         function setRating($rating) {
-            $this->rating = $rating;
+            $this->rating = (int) $rating;
         }
 
         function getRating() {
@@ -47,7 +47,7 @@
         }
 
         function save() {
-            $GLOBALS['DB']->exec("INSERT INTO restaurants (name, cuisine_id, review, rating) VALUES ('{$this->getName()}', {$this->getCuisineId()}, '{$this->getReview()}', {$this->getCuisineId()});");
+            $GLOBALS['DB']->exec("INSERT INTO restaurants (name, cuisine_id, review, rating) VALUES ('{$this->getName()}', {$this->getCuisineId()}, '{$this->getReview()}', {$this->getRating()});");
             $this->id = $GLOBALS['DB']->lastInsertId();
         }
 
