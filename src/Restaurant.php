@@ -1,22 +1,22 @@
 <?php
     class Restaurant {
-        private $rest_id;
+        private $id;
         private $name;
-        private $cuis_id;
+        private $cuisine_id;
         private $review;
         private $rating;
 
-        function __construct($rest_id = null, $name, $cuis_id,
+        function __construct($id = null, $name, $cuisine_id,
         $review = "No review given", $rating = 3) {
-            $this->rest_id = $rest_id;
+            $this->id = $id;
             $this->name = $name;
-            $this->cuis_id = $cuis_id;
+            $this->cuisine_id = $cuisine_id;
             $this->rating = $review;
             $this->rating = $rating;
         }
 
-        function getRestId() {
-            return $this->rest_id;
+        function getId() {
+            return $this->id;
         }
 
         function setName($name) {
@@ -27,8 +27,8 @@
             return $this->name;
         }
 
-        function getCuisId() {
-            return $this->cuis_id;
+        function getCuisineId() {
+            return $this->cuisine_id;
         }
 
         function setReview($review) {
@@ -48,25 +48,20 @@
         }
 
         function save() {
-            $GLOBALS["DB"]->exec("INSERT INTO restaurants (name,
-            cuis_id, review, rating) VALUES ('{this->getName()}',
-            {$this->getCuisId()}, '{$this->getReview()}',
-            {$this->getRating()});");
-            $this->rest_id = $GLOBALS["DB"]->lastInsertId();
+            $GLOBALS['DB']->exec("INSERT INTO restaurants (name, cuisine_id, review, rating) VALUES ('{$this->getName()}', {$this->getCuisineId()}, '{$this->getReview()}', '{$this->getRating()}');");
+            $this->id = $GLOBALS['DB']->lastInsertId();
         }
 
         static function getAll() {
-            $returned_rests = $GLOBALS["DB"]->query("SELECT
-            * FROM restaurants;");
+            $returned_rests = $GLOBALS['DB']->query("SELECT * FROM restaurants;");
             $rests = array();
             foreach($returned_rests as $rest) {
-                $rest_id = $rest["rest_id"];
-                $name = $rest["name"];
-                $cuis_id = $rest["cuis_id"];
-                $review = $rest["cuis_id"];
+                $id = $rest['id'];
+                $name = $rest['name'];
+                $cuisine_id = $rest['cuisine_id'];
+                $review = $rest['review'];
                 $rating = $rest["rating"];
-                $new_rest = new Restaurant($rest_id, $name, $cuis_id,
-                $review, $rating);
+                $new_rest = new Restaurant($id, $name, $cuisine_id, $review, $rating);
                 array_push($rests, $new_rest);
             }
             return $rests;
@@ -82,7 +77,7 @@
             foreach($rests as $rest) {
                 $id = $rest->getRestId();
                 if ($id == $search_id) {
-                    $found_task = $rest;
+                    $found_rest = $rest;
                 }
             }
             return $found_rest;

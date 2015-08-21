@@ -1,11 +1,11 @@
 <?php
     class Cuisine {
         private $type;
-        private $cuis_id;
+        private $id;
 
-        function __construct($type, $cuis_id = null) {
+        function __construct($type, $id = null) {
             $this->type = $type;
-            $this->cuis_id = $cuis_id;
+            $this->id = $id;
         }
 
         function setType($type) {
@@ -16,26 +16,26 @@
             return $this->type;
         }
 
-        function setCuisId($cuis_id) {
-            $this->cuis_id = $cuis_id;
+        function setId($id) {
+            $this->id = $id;
         }
 
-        function getCuisId() {
-            return $this->cuis_id;
+        function getId() {
+            return $this->id;
         }
 
         function getRests() {
             $rests = array();
             $returned_rests = $GLOBALS["DB"]->query("SELECT *
-            FROM restaurants WHERE cuis_id = {$this->getCuisId()};");
+            FROM restaurants WHERE id = {$this->getId()};");
             foreach ($returned_rests as $rest) {
                 $rest_id = $rest["rest_id"];
                 $name = $rest["name"];
-                $cuis_id = $rest["cuis_id"];
+                $id = $rest["id"];
                 $review = $rest["review"];
                 $rating = $rest["rating"];
                 $new_rest = new Restaurant($rest_id, $name,
-                $cuis_id, $review, $rating);
+                $id, $review, $rating);
                 array_push($rests, $new_rest);
             }
             return $rests;
@@ -45,7 +45,7 @@
             $GLOBALS["DB"]->exec("INSERT INTO cuisines (type)
             VALUES ('{$this->getType()}');");
             $result_id = $GLOBALS["DB"]->lastInsertId();
-            $this->setCuisId($result_id);
+            $this->setId($result_id);
         }
 
         static function getAll() {
@@ -54,8 +54,8 @@
             $cuisines = array();
             foreach($returned_cuisines as $cuisine) {
                 $type = $cuisine["type"];
-                $cuis_id = $cuisine["cuis_id"];
-                $new_cuisine = new Cuisine($type, $cuis_id);
+                $id = $cuisine["id"];
+                $new_cuisine = new Cuisine($type, $id);
                 array_push($cuisines, $new_cuisine);
             }
             return $cuisines;
@@ -69,8 +69,8 @@
             $found_cuisine = null;
             $cuisines = Cuisine::getAll();
             foreach($cuisines as $cuisine) {
-                $cuis_id = $cuisine->getCuisId();
-                if ($cuis_id == $search_id) {
+                $id = $cuisine->getId();
+                if ($id == $search_id) {
                     $found_cuisine = $cuisine;
                 }
             }

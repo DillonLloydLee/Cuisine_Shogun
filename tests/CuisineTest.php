@@ -25,9 +25,9 @@
             $test_cuisine = new Cuisine($type, $rest_id);
             $test_cuisine->save();
 
-            $test_cuis_id = $test_cuisine->getCuisId();
-            $review = null;
-            $rating = null;
+            $test_cuis_id = $test_cuisine->getId();
+            $review = "It Sucks.";
+            $rating = 5;
 
             $name = "Bar Mingo";
             $test_rest = new Restaurant($rest_id, $name, $test_cuis_id,
@@ -98,7 +98,7 @@
             $test_cuisine2 = new Cuisine($type2);
             $test_cuisine2->save();
 
-            $result = Cuisine::find($test_cuisine->getCuisId());
+            $result = Cuisine::find($test_cuisine->getId());
 
             $this->assertEquals($test_cuisine, $result);
         }

@@ -19,38 +19,39 @@
             Cuisine::deleteAll();
         }
 
-        function test_getRestId() {
+        function test_getId() {
             $type = "Italian";
             $id = null;
             $test_cuisine = new Cuisine($type, $id);
 
             $name = "Serratto";
-            $cuis_id = $test_cuisine->getCuisId();
+            $cuis_id = $test_cuisine->getId();
             $review = null;
             $rating = null;
             $test_rest = new Restaurant($id, $name, $cuis_id,
             $review, $rating);
             $test_rest->save();
 
-            $result = $test_rest->getRestId();
+            $result = $test_rest->getId();
 
             $this->assertEquals(true, is_numeric($result));
         }
 
-        function test_getCuisId() {
+        function test_getCuisineId() {
             $type = "Italian";
             $id = null;
             $test_cuisine = new Cuisine($type, $id);
+            $test_cuisine->save();
 
             $name = "Serratto";
-            $cuis_id = $test_cuisine->getCuisId();
+            $cuis_id = $test_cuisine->getId();
             $review = null;
             $rating = null;
             $test_rest = new Restaurant($id, $name, $cuis_id,
             $review, $rating);
             $test_rest->save();
 
-            $result = $test_rest->getCuisId();
+            $result = $test_rest->getCuisineId();
 
             $this->assertEquals(true, is_numeric($result));
         }
@@ -61,16 +62,14 @@
             $test_cuisine = new Cuisine($type, $id);
 
             $name = "Serratto";
-            $cuis_id = $test_cuisine->getCuisId();
-            $review = null;
-            $rating = null;
+            $cuis_id = $test_cuisine->getId();
             $test_rest = new Restaurant($id, $name, $cuis_id,
-            $review, $rating);
+            null, null);
             $test_rest->save();
 
             $result = Restaurant::getAll();
 
-            $this->assertEquals($test_rest, $result);
+            $this->assertEquals($test_rest, $result[0]);
         }
 
         function test_getAll() {
@@ -79,15 +78,11 @@
             $test_cuisine = new Cuisine($type, $id);
 
             $name = "Serratto";
-            $cuis_id = $test_cuisine->getCuisId();
-            $review = null;
-            $rating = null;
-            $test_rest = new Restaurant($id, $name, $cuis_id,
-            $review, $rating);
+            $cuis_id = $test_cuisine->getId();
+            $test_rest = new Restaurant($id, $name, $cuis_id);
 
             $name2 = "Bar Mingo";
-            $test_rest2 = new Restaurant($id, $name2, $cuis_id,
-            $review, $rating);
+            $test_rest2 = new Restaurant($id, $name2, $cuis_id);
             $test_rest2->save();
 
             $result = Restaurant::getAll();
@@ -101,7 +96,7 @@
             $test_cuisine = new Cuisine($type, $id);
 
             $name = "Serratto";
-            $cuis_id = $test_cuisine->getCuisId();
+            $cuis_id = $test_cuisine->getId();
             $review = null;
             $rating = null;
             $test_rest = new Restaurant($id, $name, $cuis_id,
@@ -125,7 +120,7 @@
             $test_cuisine = new Cuisine($type, $id);
 
             $name = "Serratto";
-            $cuis_id = $test_cuisine->getCuisId();
+            $cuis_id = $test_cuisine->getId();
             $review = null;
             $rating = null;
             $test_rest = new Restaurant($id, $name, $cuis_id,
@@ -136,7 +131,7 @@
             $review, $rating);
             $test_rest2->save();
 
-            $result = Restaurant::find($test_rest->getRestId());
+            $result = Restaurant::find($test_rest->getId());
 
             $this->assertEquals([$test_rest], $result);
         }
@@ -147,7 +142,7 @@
             $test_cuisine = new Cuisine($type, $id);
 
             $name = "Serratto";
-            $cuis_id = $test_cuisine->getCuisId();
+            $cuis_id = $test_cuisine->getId();
             $review = "This restaurant sucks.";
             $rating = null;
             $test_rest = new Restaurant($id, $name, $cuis_id,
